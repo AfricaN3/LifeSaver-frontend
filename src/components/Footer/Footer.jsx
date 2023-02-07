@@ -101,19 +101,19 @@ const Footer = () => {
             <input type="text" className="newsletter" placeholder="Email" />
             <div className="social__links d-flex gap-3 align-items-center ">
               <span>
-                <Link to="#">
+                <a href="https://twitter.com/Africa_N3">
                   <i className="ri-twitter-line"></i>
-                </Link>
+                </a>
               </span>
               <span>
-                <Link to="#">
+                <a href="https://t.me/african3">
                   <i className="ri-telegram-line"></i>
-                </Link>
+                </a>
               </span>
               <span>
-                <Link to="#">
+                <a href="https://discord.gg/aEHWMdyeCB">
                   <i className="ri-discord-line"></i>
-                </Link>
+                </a>
               </span>
             </div>
           </Col>
