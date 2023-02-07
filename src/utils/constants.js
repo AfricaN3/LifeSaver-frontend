@@ -11,7 +11,7 @@ export const gasContractAddress = "0xd2a4cff31913016155e38e474a2c06d08be276cf";
 export const flamingoContractAddress =
   "0xf0151f528127558851b39c2cd8aa47da7418ab28";
 
-export const bNeoContractAddress = "0x48c40d4666f93408be1bef038b6722404d9a4c2a";
+export const bNeoContractAddress = "0x85deac50febfd93988d3f391dea54e8289e43e9e";
 
 export const lifeTestnetContractAddress =
   "0x37b9b93fbb52919a42e13c3df37e03527c63fb0a";
