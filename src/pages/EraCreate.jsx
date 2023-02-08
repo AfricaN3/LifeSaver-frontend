@@ -31,18 +31,21 @@ const schema = yup
       .required("Sponsoring organization's name is required"),
     noOfWinners: yup
       .number()
+      .required("Number of winners is required")
+      .typeError("Number of winners is required")
       .positive("Number of winners must be positive")
       .integer("Number of winners must be an integer")
-      .required("Number of winners is required")
       .min(5, "The minimum number of raffle winners are 5"),
     eraDate: yup
       .date()
-      .required()
+      .required("Date for Era is required")
+      .typeError("Date for Era is required")
       .min(new Date(), "Era date must be later than today"),
     mintFee: yup
       .number()
+      .required("Mint fee is required")
+      .typeError("Mint fee is required")
       .positive()
-      .required()
       .min(1, "1 GAS is the least mint fee for an Era"),
   })
   .required();

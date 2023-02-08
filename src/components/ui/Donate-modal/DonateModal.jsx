@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo, useCallback } from "react";
 
 import { useForm } from "react-hook-form";
 import Neon from "@cityofzion/neon-js";
@@ -12,9 +12,8 @@ import { helpers } from "@cityofzion/props";
 
 import "./donate-modal.css";
 import {
-  bNeoContractAddress,
+  tokens,
   gasContractAddress,
-  FUSDContractAddress,
   lifeTestnetContractAddress,
   testnetMagic,
   factor,
@@ -39,7 +38,11 @@ const adminSchema = yup
 
 const guestSchema = yup
   .object({
-    amount: yup.number().positive("Amount must be positive").default(10),
+    amount: yup
+      .number()
+      .typeError("Amount is required")
+      .positive("Amount must be positive")
+      .default(10),
     token: yup.string().required(),
   })
   .required();
@@ -59,12 +62,17 @@ const DonateModal = ({
 }) => {
   const { address, connected, invoke } = useWallet();
   const [schema, setSchema] = useState({});
-  const lifeContract = new Neon.experimental.SmartContract(
-    Neon.u.HexString.fromHex(lifeTestnetContractAddress),
-    {
-      networkMagic: testnetMagic,
-      rpcAddress: nodeUrl,
-    }
+  const [supportedTokens, setSupportedTokens] = useState(tokens);
+  const lifeContract = useMemo(
+    () =>
+      new Neon.experimental.SmartContract(
+        Neon.u.HexString.fromHex(lifeTestnetContractAddress),
+        {
+          networkMagic: testnetMagic,
+          rpcAddress: nodeUrl,
+        }
+      ),
+    []
   );
 
   const accountIsOfEra = async (eraId, address) => {
@@ -77,13 +85,16 @@ const DonateModal = ({
     return isOfEraResult.stack[0].value;
   };
 
-  const isTokenSupported = async (token) => {
-    const isTokenSupportedResult = await lifeContract.testInvoke(
-      "isTokenSupported",
-      [toInvocationArgument("Hash160", token)]
-    );
-    return isTokenSupportedResult.stack[0].value;
-  };
+  const isTokenSupported = useCallback(
+    async (token) => {
+      const isTokenSupportedResult = await lifeContract.testInvoke(
+        "isTokenSupported",
+        [toInvocationArgument("Hash160", token)]
+      );
+      return isTokenSupportedResult.stack[0].value;
+    },
+    [lifeContract]
+  );
 
   const tokenAccountBalance = async (token) => {
     const tokenContract = new Neon.experimental.SmartContract(
@@ -134,6 +145,25 @@ const DonateModal = ({
       setSchema(guestSchema);
     }
   }, [role, toDonate]);
+
+  useEffect(() => {
+    const asyncFilter = async () =>
+      tokens.reduce(
+        async (list, token) =>
+          (await isTokenSupported(token.value))
+            ? [...(await list), token]
+            : list,
+        []
+      );
+    const getSupportedTokens = async () => {
+      let result = await asyncFilter();
+      setSupportedTokens(result);
+    };
+
+    getSupportedTokens();
+  }, [isTokenSupported]);
+
+  console.log(supportedTokens);
 
   const {
     register,
@@ -614,7 +644,8 @@ const DonateModal = ({
               <div className="input__item mb-4">
                 <input
                   type="number"
-                  placeholder="00 . 00"
+                  placeholder="10.0"
+                  step="any"
                   {...register("amount")}
                 />
                 <p className="errors">{errors.amount?.message}</p>
@@ -622,9 +653,11 @@ const DonateModal = ({
               <div className="input__item mb-3">
                 <h6>Select Token</h6>
                 <select {...register("token")} className="input__item mb-3">
-                  <option value={bNeoContractAddress}>bNEO</option>
-                  <option value={gasContractAddress}>GAS</option>
-                  <option value={FUSDContractAddress}>FUSD</option>
+                  {supportedTokens.map((token) => (
+                    <option key={token.value} value={token.value}>
+                      {token.display}
+                    </option>
+                  ))}
                 </select>
                 <p className="errors">{errors.token?.message}</p>
               </div>

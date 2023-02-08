@@ -150,9 +150,11 @@ const NftCard = ({ item }) => {
             />
           )}
 
-          <span className="history__link" onClick={() => startDonate()}>
-            <Link to="#">Donate</Link>
-          </span>
+          {role !== "fan" && (
+            <span className="history__link" onClick={() => startDonate()}>
+              <Link to="#">Donate</Link>
+            </span>
+          )}
         </div>
       </div>
     </div>

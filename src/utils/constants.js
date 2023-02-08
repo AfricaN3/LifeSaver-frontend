@@ -23,3 +23,22 @@ export const nodeUrl = "https://testnet2.neo.coz.io:443"; //"https://mainnet5.ne
 export const mainnetNodeUrl = "https://mainnet5.neo.coz.io:443";
 
 export const factor = Math.pow(10, 8);
+
+export const tokens = [
+  {
+    display: "bNEO",
+    value: bNeoContractAddress,
+  },
+  {
+    display: "GAS",
+    value: gasContractAddress,
+  },
+  {
+    display: "FUSD",
+    value: FUSDContractAddress,
+  },
+  {
+    display: "FLM",
+    value: flamingoContractAddress,
+  },
+];
