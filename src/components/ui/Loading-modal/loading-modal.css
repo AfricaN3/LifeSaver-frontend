@@ -28,6 +28,32 @@
   margin-bottom: 10px;
 }
 
+.success {
+  color: aliceblue;
+  text-decoration-color: #2bbb7f;
+  text-decoration-thickness: 0.125em;
+  text-underline-offset: 1.5px;
+}
+
+.failure {
+  color: aliceblue;
+  text-decoration-color: #ea215a;
+  text-decoration-thickness: 0.125em;
+  text-underline-offset: 1.5px;
+}
+
+.loading {
+  color: aliceblue;
+  text-decoration-color: #2bbb7f;
+  text-decoration-thickness: 0.125em;
+  text-underline-offset: 1.5px;
+}
+
+.single__modal a:hover {
+  color: aliceblue;
+  text-decoration-color: #2bbb7f;
+}
+
 .single__modal .money {
   color: #fff;
   font-weight: 500;

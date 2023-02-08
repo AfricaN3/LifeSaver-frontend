@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { Link } from "react-router-dom";
 import Neon from "@cityofzion/neon-js";
 import Identicon from "react-identicons";
@@ -11,6 +11,8 @@ import {
   lifeTestnetContractAddress,
   testnetMagic,
   nodeUrl,
+  gasContractAddress,
+  factor,
 } from "../../../utils/constants";
 import DonateModal from "../Donate-modal/DonateModal";
 import LoadingModal from "../Loading-modal/LoadingModal";
@@ -29,20 +31,39 @@ const NftCard = ({ item }) => {
   const [showLoadingModal, setShowLoadingModal] = useState(false);
   const [stage, setStage] = useState("started");
   const [txId, setTxId] = useState("");
+  const [reward, setReward] = useState(0);
 
   const startDonate = () => {
     setToDonate(true);
     setShowDonateModal(true);
   };
 
+  const lifeContract = useMemo(
+    () =>
+      new Neon.experimental.SmartContract(
+        Neon.u.HexString.fromHex(lifeTestnetContractAddress),
+        {
+          networkMagic: testnetMagic,
+          rpcAddress: nodeUrl,
+        }
+      ),
+    []
+  );
+
   useEffect(() => {
-    const lifeContract = new Neon.experimental.SmartContract(
-      Neon.u.HexString.fromHex(lifeTestnetContractAddress),
-      {
-        networkMagic: testnetMagic,
-        rpcAddress: nodeUrl,
-      }
-    );
+    const getReward = async () => {
+      let num = item[5];
+      let str = num.toString();
+      const gasRewardResult = await lifeContract.testInvoke("getEraReward", [
+        toInvocationArgument("Hash160", gasContractAddress),
+        toInvocationArgument("Integer", str),
+      ]);
+      setReward(gasRewardResult.stack[0].value);
+    };
+    getReward();
+  }, [item, lifeContract]);
+
+  useEffect(() => {
     if (connected) {
       const sendTransaction = async () => {
         let num = item[5];
@@ -57,7 +78,7 @@ const NftCard = ({ item }) => {
     } else {
       setIsOfEra(false);
     }
-  }, [address, connected, item]);
+  }, [address, connected, item, lifeContract]);
 
   useEffect(() => {
     if (userPermissions["offline_mint"] || address === item[0]) {
@@ -93,7 +114,7 @@ const NftCard = ({ item }) => {
 
             <div>
               <h6>Raffle bag</h6>
-              <p>100 GAS</p>
+              <p>{reward / factor} GAS</p>
             </div>
           </div>
         </div>

@@ -20,7 +20,12 @@ const LoadingModal = ({ setShowLoadingModal, stage, txID }) => {
           <>
             <h6 className="text-center text-light">Transaction loading...</h6>
             <p className="text-center text-light">
-              {`Confirming transaction: ${txID}`}
+              <a
+                className="loading"
+                target="_blank"
+                rel="noreferrer"
+                href={`https://dora.coz.io/transaction/neo3/testnet/${txID}`}
+              >{`Confirming transaction: ${txID}`}</a>
             </p>
           </>
         )}
@@ -30,7 +35,12 @@ const LoadingModal = ({ setShowLoadingModal, stage, txID }) => {
               Transaction successful...
             </h6>
             <p className="text-center text-light">
-              {`Transaction was successful: ${txID}`}
+              <a
+                className="success"
+                target="_blank"
+                rel="noreferrer"
+                href={`https://dora.coz.io/transaction/neo3/testnet/${txID}`}
+              >{`Transaction was successful: ${txID}`}</a>
             </p>
           </>
         )}
@@ -40,7 +50,12 @@ const LoadingModal = ({ setShowLoadingModal, stage, txID }) => {
               Transaction unsuccessful...
             </h6>
             <p className="text-center text-light">
-              {`Transaction was not successful: ${txID}`}
+              <a
+                className="failure"
+                target="_blank"
+                rel="noreferrer"
+                href={`https://dora.coz.io/transaction/neo3/testnet/${txID}`}
+              >{`Transaction was not successful: ${txID}`}</a>
             </p>
           </>
         )}

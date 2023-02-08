@@ -253,7 +253,7 @@ const DonateModal = ({
 
   const mint = async () => {
     if (!address || !connected) {
-      toast.error(`🤦 You need to connect a wallet to create an Era`, {
+      toast.error(`🤦 You need to connect a wallet to mint LIFE`, {
         position: "bottom-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -344,7 +344,7 @@ const DonateModal = ({
         const sent = new_result[0];
         if (sent) {
           setStage("finished");
-          toast.success(`🤦 Transaction was successful`, {
+          toast.success(`😊 Transaction was successful`, {
             position: "bottom-right",
             autoClose: 5000,
             hideProgressBar: false,
@@ -384,7 +384,7 @@ const DonateModal = ({
   };
   const donate = async (data) => {
     if (!address || !connected) {
-      toast.error(`🤦 You need to connect a wallet to create an Era`, {
+      toast.error(`🤦 You need to connect a wallet to donate`, {
         position: "bottom-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -505,7 +505,7 @@ const DonateModal = ({
         const sent = new_result[0];
         if (sent) {
           setStage("finished");
-          toast.success(`🤦 Transaction was successful`, {
+          toast.success(`😊 Transaction was successful`, {
             position: "bottom-right",
             autoClose: 5000,
             hideProgressBar: false,

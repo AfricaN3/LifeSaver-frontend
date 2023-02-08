@@ -143,7 +143,7 @@ const EraCreate = () => {
         const sent = new_result[0];
         if (sent) {
           setStage("finished");
-          toast.success(`🤦 Transaction was successful`, {
+          toast.success(`😊 Transaction was successful`, {
             position: "bottom-right",
             autoClose: 5000,
             hideProgressBar: false,
