@@ -70,7 +70,9 @@ const EraDetails = ({ eras }) => {
         ]);
         setIsOfEra(isOfEraResult.stack[0].value);
       };
-      sendTransaction();
+      if (singleEra) {
+        sendTransaction();
+      }
     } else {
       setIsOfEra(false);
     }

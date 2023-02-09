@@ -13,8 +13,8 @@ const HeroSection = () => {
           <Col lg="6" md="6">
             <div className="hero__content">
               <h2>
-                Donate, save a life and
-                <span>mint LifeSaver</span> NFTs
+                Donate, Save a Life and Mint
+                <span> LifeSaver</span> NFTs
               </h2>
               <p>
                 The LiveSaver NFTs (LIFE) are soulbound tokens given to blood

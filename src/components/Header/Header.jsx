@@ -4,7 +4,7 @@ import "./header.css";
 import { Container } from "reactstrap";
 import logo from "../../assets/images/whitelogo.png";
 
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import ButtonConnect from "../ui/Buttonconnect/ButtonConnect";
 
 const NAV__LINKS = [
@@ -51,7 +51,9 @@ const Header = () => {
       <Container>
         <div className="navigation">
           <div className="logo">
-            <img src={logo} alt="logo" />
+            <Link to={`/home`}>
+              <img src={logo} alt="logo" />
+            </Link>
           </div>
 
           <div className="nav__menu" ref={menuRef} onClick={toggleMenu}>
