@@ -623,7 +623,7 @@ const DonateModal = ({
               <div className="input__item mb-3">
                 <h6>Donor / Fan</h6>
                 <select {...register("archetype")} className="input__item mb-3">
-                  <option value={0}>Ony Attended drive</option>
+                  <option value={0}>Only Attended drive</option>
                   <option value={1}>Donated blood</option>
                 </select>
                 <p className="errors">{errors.archetype?.message}</p>

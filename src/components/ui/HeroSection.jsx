@@ -17,7 +17,7 @@ const HeroSection = () => {
                 <span> LifeSaver</span> NFTs
               </h2>
               <p>
-                The LiveSaver NFTs (LIFE) are soulbound tokens given to blood
+                The LifeSaver NFTs (LIFE) are soulbound tokens given to blood
                 donors and blood drive event sponsors. The NFTs are meant to
                 incentivize blood donation as they also serve as Raffle tickets.
               </p>
