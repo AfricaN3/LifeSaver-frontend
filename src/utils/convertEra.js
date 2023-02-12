@@ -8,8 +8,13 @@ export function convertEra(era) {
       convertedEra.push(convertedAdmin);
     }
     if (i === 1) {
-      let convertedOrganization = convertToreadable("string", era[i].value);
-      convertedEra.push(convertedOrganization);
+      try {
+        let convertedOrganization = convertToreadable("string", era[i].value);
+        convertedEra.push(convertedOrganization);
+      } catch (error) {
+        console.log(error);
+        convertedEra.push(era[i].value);
+      }
     }
     if (i === 2) {
       let convertedDate = convertToreadable("string", era[i].value);

@@ -21,7 +21,6 @@ import {
   toInvocationArgument,
   convertToreadable,
 } from "../../../utils/converter";
-import { shortenAddress } from "../../../utils/shortenAddress";
 
 import "./transfer-modal.css";
 
@@ -171,7 +170,7 @@ const TransferModal = (props) => {
     try {
       let result = await invoke(param);
       if (result.data?.txId) {
-        setTxId(shortenAddress(result.data?.txId));
+        setTxId(result.data?.txId);
         setShowTransferModal(false);
         setShowLoadingModal(true);
         setStage("blockchain");

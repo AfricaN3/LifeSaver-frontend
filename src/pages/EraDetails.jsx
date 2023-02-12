@@ -20,7 +20,10 @@ import {
   testnetMagic,
   nodeUrl,
 } from "../utils/constants";
-import { toInvocationArgument } from "../utils/converter";
+import {
+  toInvocationArgument,
+  convertAddressFromEvent,
+} from "../utils/converter";
 import useReadNeo from "../hooks/useReadNeo";
 // import WinnerSection from "../components/ui/Winner-section/WinnerSection";
 import eraImg from "../assets/images/hero.png";
@@ -49,8 +52,8 @@ const EraDetails = ({ eras }) => {
 
   useEffect(() => {
     const foundEra = eras?.find((item) => item[5] === parseInt(id));
-    console.log(foundEra);
     setSingleEra(foundEra);
+    console.log(foundEra);
   }, [eras, id]);
 
   useEffect(() => {
@@ -164,7 +167,7 @@ const EraDetails = ({ eras }) => {
     try {
       let result = await invoke(param);
       if (result.data?.txId) {
-        setTxId(shortenAddress(result.data?.txId));
+        setTxId(result.data?.txId);
         setShowLoadingModal(true);
         setStage("blockchain");
         await helpers.sleep(20000);
@@ -278,10 +281,11 @@ const EraDetails = ({ eras }) => {
     try {
       let result = await invoke(param);
       if (result.data?.txId) {
-        setTxId(shortenAddress(result.data?.txId));
+        setTxId(result.data?.txId);
         setShowLoadingModal(true);
         setStage("blockchain");
         await helpers.sleep(20000);
+        let events = await helpers.getEvents(nodeUrl, result.data?.txId);
         let new_result;
         new_result = await helpers.txDidComplete(
           nodeUrl,
@@ -289,19 +293,25 @@ const EraDetails = ({ eras }) => {
           true
         );
         console.log(new_result);
+        console.log(events);
         const sent = new_result[0];
         if (sent) {
           setStage("finished");
-          toast.success(`😊 Transaction was successful`, {
-            position: "bottom-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: false,
-            draggable: true,
-            progress: undefined,
-            theme: "dark",
-          });
+          const winner = convertAddressFromEvent(events[0].value[1]);
+          const reward = JSON.stringify(events[0].value[2]);
+          toast.success(
+            `🦄 New Winner!!! ${winner} has been sent ${reward / factor} GAS!`,
+            {
+              position: "bottom-center",
+              autoClose: 15000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: false,
+              draggable: true,
+              progress: undefined,
+              theme: "dark",
+            }
+          );
         } else {
           setStage("error");
           toast.error(`🤦 Transaction was not successful`, {
@@ -411,33 +421,32 @@ const EraDetails = ({ eras }) => {
                       isOfEra={isOfEra}
                     />
                   )}
-                  {singleEra[7] === 0 ||
-                    (userPermissions["manage_era"] && (
-                      <EraCardButton
-                        setShowDonateModal={setShowDonateModal}
-                        role={role}
-                        startDonate={startDonate}
-                        btnStyle={`singleNft-btn d-flex align-items-center gap-2 w-100`}
-                      />
-                    ))}
+                  {userPermissions["manage_era"] || singleEra[7] === 0 ? (
+                    <EraCardButton
+                      setShowDonateModal={setShowDonateModal}
+                      role={role}
+                      startDonate={startDonate}
+                      btnStyle={`singleNft-btn d-flex align-items-center gap-2 w-100`}
+                    />
+                  ) : null}
                   {userPermissions["manage_era"] &&
-                    singleEra[3] <= singleEra[6] &&
-                    singleEra[7] === 0 && (
-                      <button
-                        className={`singleNft-btn d-flex align-items-center gap-2 w-100 mt-2`}
-                        onClick={() => endEra()}
-                      >
-                        <i className="ri-shopping-bag-line"></i> End Era
-                      </button>
-                    )}
-                  {userPermissions["manage_era"] && singleEra[7] === 1 && (
+                  singleEra[3] <= singleEra[6] &&
+                  singleEra[7] === 0 ? (
+                    <button
+                      className={`singleNft-btn d-flex align-items-center gap-2 w-100 mt-2`}
+                      onClick={() => endEra()}
+                    >
+                      <i className="ri-shopping-bag-line"></i> End Era
+                    </button>
+                  ) : null}
+                  {userPermissions["manage_era"] && singleEra[7] === 1 ? (
                     <button
                       className={`singleNft-btn d-flex align-items-center gap-2 w-100 mt-2`}
                       onClick={() => payWinner()}
                     >
                       <i className="ri-shopping-bag-line"></i> Pay Winner
                     </button>
-                  )}
+                  ) : null}
                 </div>
               </Col>
             </Row>

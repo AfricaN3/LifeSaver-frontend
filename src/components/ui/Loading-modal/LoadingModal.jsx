@@ -4,6 +4,8 @@ import "./loading-modal.css";
 
 import { CirclesWithBar } from "react-loader-spinner";
 
+import { shortenAddress } from "../../../utils/shortenAddress";
+
 const LoadingModal = ({ setShowLoadingModal, stage, txID }) => {
   return (
     <div className="modal__wrapper">
@@ -25,7 +27,7 @@ const LoadingModal = ({ setShowLoadingModal, stage, txID }) => {
                 target="_blank"
                 rel="noreferrer"
                 href={`https://dora.coz.io/transaction/neo3/testnet/${txID}`}
-              >{`Confirming transaction: ${txID}`}</a>
+              >{`Confirming transaction: ${shortenAddress(txID)}`}</a>
             </p>
           </>
         )}
@@ -40,7 +42,7 @@ const LoadingModal = ({ setShowLoadingModal, stage, txID }) => {
                 target="_blank"
                 rel="noreferrer"
                 href={`https://dora.coz.io/transaction/neo3/testnet/${txID}`}
-              >{`Transaction was successful: ${txID}`}</a>
+              >{`Transaction was successful: ${shortenAddress(txID)}`}</a>
             </p>
           </>
         )}
@@ -55,7 +57,7 @@ const LoadingModal = ({ setShowLoadingModal, stage, txID }) => {
                 target="_blank"
                 rel="noreferrer"
                 href={`https://dora.coz.io/transaction/neo3/testnet/${txID}`}
-              >{`Transaction was not successful: ${txID}`}</a>
+              >{`Transaction was not successful: ${shortenAddress(txID)}`}</a>
             </p>
           </>
         )}

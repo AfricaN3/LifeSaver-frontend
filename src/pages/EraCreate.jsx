@@ -11,7 +11,6 @@ import { toast } from "react-toastify";
 import { useWallet } from "@rentfuse-labs/neo-wallet-adapter-react";
 
 import useReadNeo from "../hooks/useReadNeo";
-import { shortenAddress } from "../utils/shortenAddress";
 import {
   factor,
   gasContractAddress,
@@ -28,6 +27,11 @@ const schema = yup
   .object({
     sponsor: yup
       .string()
+      .test(
+        "is-valid-hex",
+        (d) => `${d.path} is not a valid sponsor`,
+        (value) => u.isHex(u.str2hexstring(value))
+      )
       .required("Sponsoring organization's name is required"),
     noOfWinners: yup
       .number()
@@ -132,7 +136,7 @@ const EraCreate = () => {
     try {
       let result = await invoke(param);
       if (result.data?.txId) {
-        setTxId(shortenAddress(result.data?.txId));
+        setTxId(result.data?.txId);
         setShowLoadingModal(true);
         setStage("blockchain");
         await helpers.sleep(20000);

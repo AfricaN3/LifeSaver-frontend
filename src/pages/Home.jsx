@@ -34,9 +34,9 @@ const Home = () => {
     <>
       <HeroSection />
       <StepSection />
-      {eras.length > 0 && <LiveEras eras={eras} />}
+      {eras.length > 0 ? <LiveEras eras={eras} /> : null}
       <Partners />
-      {connected && <Nft lifeBalance={lifeBalance} />}
+      {connected ? <Nft lifeBalance={lifeBalance} /> : null}
     </>
   );
 };

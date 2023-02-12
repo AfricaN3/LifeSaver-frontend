@@ -112,7 +112,11 @@ export function convertToreadable(type, value) {
         parsedValue = value;
         break;
       case "string":
-        parsedValue = u.hexstring2str(value);
+        if (u.isHex(value)) {
+          parsedValue = u.hexstring2str(value);
+        } else {
+          parsedValue = u.hexstring2str(u.base642hex(value));
+        }
         break;
       case "number":
         parsedValue = parseInt(value);
@@ -135,5 +139,13 @@ export function convertToreadable(type, value) {
 export const convertPermissions = (value) => {
   if (value !== undefined) {
     return u.hexstring2str(u.base642hex(value));
+  }
+};
+
+export const convertAddressFromEvent = (value) => {
+  if (value !== undefined) {
+    return wallet.getAddressFromScriptHash(
+      u.reverseHex(u.str2hexstring(value))
+    );
   }
 };

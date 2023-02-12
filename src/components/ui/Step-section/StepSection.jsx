@@ -13,7 +13,7 @@ const STEP__DATA = [
 
   {
     title: "Attend blood drive",
-    url: "/era",
+    url: "https://www.eventbrite.com/e/lifesavers-annual-blood-drive-tickets-545201170377",
     desc: "Be present at any LifeSaver NFTs supported blood drive event close to you to mint LIFE for free.",
     icon: "ri-calendar-event-line",
   },

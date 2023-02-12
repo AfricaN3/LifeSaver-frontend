@@ -7,7 +7,6 @@ import { WitnessScope } from "@rentfuse-labs/neo-wallet-adapter-base";
 import { helpers } from "@cityofzion/props";
 
 import { lifeTestnetContractAddress, nodeUrl } from "../../../utils/constants";
-import { shortenAddress } from "../../../utils/shortenAddress";
 
 import "./rescue-modal.css";
 
@@ -64,7 +63,7 @@ const RescueModal = (props) => {
     try {
       let result = await invoke(param);
       if (result.data?.txId) {
-        setTxId(shortenAddress(result.data?.txId));
+        setTxId(result.data?.txId);
         setShowRescueModal(false);
         setShowLoadingModal(true);
         setStage("blockchain");

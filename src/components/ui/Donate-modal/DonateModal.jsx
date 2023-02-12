@@ -19,7 +19,6 @@ import {
   factor,
   nodeUrl,
 } from "../../../utils/constants";
-import { shortenAddress } from "../../../utils/shortenAddress";
 import {
   toInvocationArgument,
   convertPermissions,
@@ -227,7 +226,7 @@ const DonateModal = ({
     try {
       let result = await invoke(param);
       if (result.data?.txId) {
-        setTxId(shortenAddress(result.data?.txId));
+        setTxId(result.data?.txId);
         setShowDonateModal(false);
         setShowLoadingModal(true);
         setStage("blockchain");
@@ -242,7 +241,7 @@ const DonateModal = ({
         const sent = new_result[0];
         if (sent) {
           setStage("finished");
-          toast.success(`🤦 Transaction was successful`, {
+          toast.success(`😊 Transaction was successful`, {
             position: "bottom-right",
             autoClose: 5000,
             hideProgressBar: false,
@@ -359,7 +358,7 @@ const DonateModal = ({
     try {
       let result = await invoke(param);
       if (result.data?.txId) {
-        setTxId(shortenAddress(result.data?.txId));
+        setTxId(result.data?.txId);
         setShowDonateModal(false);
         setShowLoadingModal(true);
         setStage("blockchain");
@@ -520,7 +519,7 @@ const DonateModal = ({
     try {
       let result = await invoke(param);
       if (result.data?.txId) {
-        setTxId(shortenAddress(result.data?.txId));
+        setTxId(result.data?.txId);
         setShowDonateModal(false);
         setShowLoadingModal(true);
         setStage("blockchain");
@@ -666,7 +665,7 @@ const DonateModal = ({
                 onClick={startDonate}
               >
                 <p>To mint LIFE donate:</p>
-                <span className="money">10 GAS</span>
+                <span className="money">{` ${mintFee / factor}`} GAS</span>
               </div>
               <button type="submit" className="place__bid-btn">
                 Donate
