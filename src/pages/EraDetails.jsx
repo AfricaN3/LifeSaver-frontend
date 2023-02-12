@@ -62,16 +62,16 @@ const EraDetails = ({ eras }) => {
       }
     );
     if (connected) {
-      const sendTransaction = async () => {
-        let num = singleEra[5];
+      const sendTransaction = async (eraList) => {
+        let num = eraList[5];
         const isOfEraResult = await lifeContract.testInvoke("isOfEra", [
           toInvocationArgument("Hash160", address),
           toInvocationArgument("Integer", num),
         ]);
         setIsOfEra(isOfEraResult.stack[0].value);
       };
-      if (singleEra) {
-        sendTransaction();
+      if (singleEra.length > 0) {
+        sendTransaction(singleEra);
       }
     } else {
       setIsOfEra(false);
@@ -178,7 +178,7 @@ const EraDetails = ({ eras }) => {
         const sent = new_result[0];
         if (sent) {
           setStage("finished");
-          toast.success(`🤦 Transaction was successful`, {
+          toast.success(`😊 Transaction was successful`, {
             position: "bottom-right",
             autoClose: 5000,
             hideProgressBar: false,
@@ -292,7 +292,7 @@ const EraDetails = ({ eras }) => {
         const sent = new_result[0];
         if (sent) {
           setStage("finished");
-          toast.success(`🤦 Transaction was successful`, {
+          toast.success(`😊 Transaction was successful`, {
             position: "bottom-right",
             autoClose: 5000,
             hideProgressBar: false,
@@ -411,23 +411,26 @@ const EraDetails = ({ eras }) => {
                       isOfEra={isOfEra}
                     />
                   )}
-                  <EraCardButton
-                    setShowDonateModal={setShowDonateModal}
-                    role={role}
-                    startDonate={startDonate}
-                    btnStyle={`singleNft-btn d-flex align-items-center gap-2 w-100`}
-                  />
-                  {userPermissions["manage_era"] &
-                    (singleEra[3] <= singleEra[6]) &
-                    (singleEra[7] === 0) && (
-                    <button
-                      className={`singleNft-btn d-flex align-items-center gap-2 w-100 mt-2`}
-                      onClick={() => endEra()}
-                    >
-                      <i className="ri-shopping-bag-line"></i> End Era
-                    </button>
-                  )}
-                  {userPermissions["manage_era"] & (singleEra[7] === 1) && (
+                  {singleEra[7] === 0 ||
+                    (userPermissions["manage_era"] && (
+                      <EraCardButton
+                        setShowDonateModal={setShowDonateModal}
+                        role={role}
+                        startDonate={startDonate}
+                        btnStyle={`singleNft-btn d-flex align-items-center gap-2 w-100`}
+                      />
+                    ))}
+                  {userPermissions["manage_era"] &&
+                    singleEra[3] <= singleEra[6] &&
+                    singleEra[7] === 0 && (
+                      <button
+                        className={`singleNft-btn d-flex align-items-center gap-2 w-100 mt-2`}
+                        onClick={() => endEra()}
+                      >
+                        <i className="ri-shopping-bag-line"></i> End Era
+                      </button>
+                    )}
+                  {userPermissions["manage_era"] && singleEra[7] === 1 && (
                     <button
                       className={`singleNft-btn d-flex align-items-center gap-2 w-100 mt-2`}
                       onClick={() => payWinner()}
