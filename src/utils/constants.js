@@ -26,12 +26,12 @@ export const factor = Math.pow(10, 8);
 
 export const tokens = [
   {
-    display: "bNEO",
-    value: bNeoContractAddress,
-  },
-  {
     display: "GAS",
     value: gasContractAddress,
+  },
+  {
+    display: "bNEO",
+    value: bNeoContractAddress,
   },
   {
     display: "FUSD",
