@@ -147,6 +147,7 @@ const NftCard = ({ item }) => {
               setShowLoadingModal={setShowLoadingModal}
               setStage={setStage}
               isOfEra={isOfEra}
+              state={item[7]}
             />
           )}
 

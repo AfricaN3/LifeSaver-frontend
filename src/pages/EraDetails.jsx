@@ -254,6 +254,120 @@ const EraDetails = ({ eras }) => {
     }
   };
 
+  const completeEra = async () => {
+    if (!address || !connected) {
+      toast.error(`🤦 You need to connect a wallet to end this era`, {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
+      return;
+    }
+    if (singleEra[7] !== 2) {
+      toast.error(`🤦 'Inappropriate era status`, {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
+      return;
+    }
+    if (!userPermissions["manage_era"]) {
+      toast.error(`🤦 User Permission Denied`, {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
+      return;
+    }
+
+    let param = {
+      scriptHash: lifeTestnetContractAddress,
+      operation: "completeEra",
+      args: [
+        {
+          type: "Integer",
+          value: sc.ContractParam.integer(id).toJson().value,
+        },
+      ],
+      signers: [
+        {
+          account: wallet.getScriptHashFromAddress(address),
+          scopes: WitnessScope.CalledByEntry,
+        },
+      ],
+    };
+
+    try {
+      let result = await invoke(param);
+      if (result.data?.txId) {
+        setTxId(result.data?.txId);
+        setShowLoadingModal(true);
+        setStage("blockchain");
+        await helpers.sleep(20000);
+        let new_result;
+        new_result = await helpers.txDidComplete(
+          nodeUrl,
+          result.data?.txId,
+          true
+        );
+        console.log(new_result);
+        const sent = new_result[0];
+        if (sent) {
+          setStage("finished");
+          toast.success(`😊 Transaction was successful`, {
+            position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+          });
+        } else {
+          setStage("error");
+          toast.error(`🤦 Transaction was not successful`, {
+            position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+          });
+        }
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error(`🤦 ${error.description}`, {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
+    }
+  };
+
   const payWinner = async () => {
     if (!address || !connected) {
       toast.error(`🤦 You need to connect a wallet to pay winners`, {
@@ -461,6 +575,7 @@ const EraDetails = ({ eras }) => {
                       setShowLoadingModal={setShowLoadingModal}
                       setStage={setStage}
                       isOfEra={isOfEra}
+                      state={singleEra[7]}
                     />
                   )}
                   {userPermissions["manage_era"] || singleEra[7] === 0 ? (
@@ -487,6 +602,14 @@ const EraDetails = ({ eras }) => {
                       onClick={() => payWinner()}
                     >
                       <i className="ri-shopping-bag-line"></i> Pay Winner
+                    </button>
+                  ) : null}
+                  {userPermissions["manage_era"] && singleEra[7] === 2 ? (
+                    <button
+                      className={`singleNft-btn d-flex align-items-center gap-2 w-100 mt-2`}
+                      onClick={() => completeEra()}
+                    >
+                      <i className="ri-shopping-bag-line"></i> Complete Era
                     </button>
                   ) : null}
                 </div>

@@ -14,7 +14,7 @@ export const flamingoContractAddress =
 export const bNeoContractAddress = "0x85deac50febfd93988d3f391dea54e8289e43e9e";
 
 export const lifeTestnetContractAddress =
-  "0x37b9b93fbb52919a42e13c3df37e03527c63fb0a";
+  "0x3a89b9392e9070ef4b1691911799d1785c0c02be";
 
 export const testnetMagic = 894710606;
 
