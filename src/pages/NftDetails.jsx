@@ -69,6 +69,7 @@ const NftDetails = () => {
           progress: undefined,
           theme: "dark",
         });
+        setState(lifeResult.state);
         return;
       }
       let rawResult = lifeResult.stack[0].value;
@@ -105,6 +106,8 @@ const NftDetails = () => {
         title={
           state === "HALT"
             ? `${convertPermissions(nftData?.name).toUpperCase()}`
+            : state === "FAULT"
+            ? `LIFE doesn't exist`
             : `Loading...`
         }
       />

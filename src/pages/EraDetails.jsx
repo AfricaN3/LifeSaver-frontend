@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 
 import CommonSection from "../components/ui/Common-section/CommonSection";
 import { useParams } from "react-router-dom";
@@ -24,6 +24,7 @@ import {
   toInvocationArgument,
   convertAddressFromEvent,
 } from "../utils/converter";
+import { convertEra } from "../utils/convertEra";
 import useReadNeo from "../hooks/useReadNeo";
 // import WinnerSection from "../components/ui/Winner-section/WinnerSection";
 import eraImg from "../assets/images/hero.png";
@@ -44,17 +45,50 @@ const EraDetails = ({ eras }) => {
   const [stage, setStage] = useState("started");
   const [isOfEra, setIsOfEra] = useState(false);
   const { address, connected, invoke } = useWallet();
+  const [getEraState, setGetEraState] = useState("loading");
 
   const startDonate = () => {
     setToDonate(true);
     setShowDonateModal(true);
   };
 
+  const getErasTransaction = useCallback(() => {
+    const getEra = async () => {
+      const contract = new Neon.experimental.SmartContract(
+        Neon.u.HexString.fromHex(lifeTestnetContractAddress),
+        {
+          networkMagic: testnetMagic,
+          rpcAddress: nodeUrl,
+        }
+      );
+      let eraJsonResult = await contract.testInvoke("getEra", [
+        toInvocationArgument("Integer", id),
+      ]);
+      console.log(eraJsonResult);
+      if (eraJsonResult.state === "HALT") {
+        let convertedEra = convertEra(eraJsonResult.stack[0].value);
+        setSingleEra(convertedEra);
+        setGetEraState("found");
+      } else {
+        toast.error(`🤦 ${eraJsonResult.exception}`, {
+          position: "bottom-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        });
+        setGetEraState("error");
+      }
+    };
+    getEra();
+  }, [id]);
+
   useEffect(() => {
-    const foundEra = eras?.find((item) => item[5] === parseInt(id));
-    setSingleEra(foundEra);
-    console.log(foundEra);
-  }, [eras, id]);
+    getErasTransaction();
+  }, [getErasTransaction]);
 
   useEffect(() => {
     const lifeContract = new Neon.experimental.SmartContract(
@@ -343,8 +377,16 @@ const EraDetails = ({ eras }) => {
 
   return (
     <>
-      <CommonSection title={singleEra ? singleEra[1] : "Loading..."} />
-      {singleEra && (
+      <CommonSection
+        title={
+          getEraState === "loading"
+            ? "Loading..."
+            : getEraState === "found"
+            ? singleEra[1]
+            : "Era not Found"
+        }
+      />
+      {singleEra.length > 0 ? (
         <section>
           <Container>
             <Row>
@@ -452,7 +494,7 @@ const EraDetails = ({ eras }) => {
             </Row>
           </Container>
         </section>
-      )}
+      ) : null}
       {/* <WinnerSection /> */}
       <LiveEras eras={eras} />
     </>
