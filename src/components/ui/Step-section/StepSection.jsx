@@ -50,7 +50,9 @@ const StepSection = () => {
                 </span>
                 <div className="step__item__content">
                   <h5>
-                    <a href={item.url}>{item.title}</a>
+                    <a href={item.url} target="_blank" rel="noreferrer">
+                      {item.title}
+                    </a>
                   </h5>
                   <p className="mb-0">{item.desc}</p>
                 </div>
