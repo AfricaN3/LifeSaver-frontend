@@ -115,7 +115,14 @@ export function convertToreadable(type, value) {
         if (u.isHex(value)) {
           parsedValue = u.hexstring2str(value);
         } else {
-          parsedValue = u.hexstring2str(u.base642hex(value));
+          let new_str = `${value.slice(0, -3)}1`;
+          console.log(value);
+          console.log(new_str);
+          let bytestring = `Z${value.slice(-3)}`;
+          let decodedBytestring = u.hexstring2str(u.base642hex(bytestring));
+          parsedValue = `${u
+            .hexstring2str(new_str)
+            .slice(0, -1)}${decodedBytestring}`;
         }
         break;
       case "number":
