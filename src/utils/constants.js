@@ -1,24 +1,23 @@
-export const FUSDContractAddress = "0xcdaddd3e196bb1c1978364dd78b8cec5d4753f58";
-
-export const candyContractAddress =
-  "0x88da18a5bca86ec8206d9b4960a7d0c4355a432f";
-
-export const nudesContractAddress =
-  "0x340720c7107ef5721e44ed2ea8e314cce5c130fa";
+export const FUSDContractAddress = "0x1005d400bcc2a56b7352f09e273be3f9933a5fb1";
 
 export const gasContractAddress = "0xd2a4cff31913016155e38e474a2c06d08be276cf";
 
 export const flamingoContractAddress =
   "0xf0151f528127558851b39c2cd8aa47da7418ab28";
 
-export const bNeoContractAddress = "0x85deac50febfd93988d3f391dea54e8289e43e9e";
+export const bNeoContractAddress = "0x48c40d4666f93408be1bef038b6722404d9a4c2a";
 
-export const lifeTestnetContractAddress =
+// export const lifeTestnetContractAddress =
+//   "0x3a89b9392e9070ef4b1691911799d1785c0c02be";
+
+export const lifeMainnetContractAddress =
   "0x3a89b9392e9070ef4b1691911799d1785c0c02be";
 
-export const testnetMagic = 894710606;
+export const mainnetMagic = 860833102;
 
-export const nodeUrl = "https://testnet2.neo.coz.io:443"; //"https://mainnet5.neo.coz.io:443"
+// export const testnetMagic =  894710606;
+
+export const nodeUrl = "https://mainnet5.neo.coz.io:443"; //"https://testnet2.neo.coz.io:443"; //"https://mainnet5.neo.coz.io:443"
 
 export const mainnetNodeUrl = "https://mainnet5.neo.coz.io:443";
 

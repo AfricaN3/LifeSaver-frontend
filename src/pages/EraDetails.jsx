@@ -16,8 +16,8 @@ import DonateModal from "../components/ui/Donate-modal/DonateModal";
 import LoadingModal from "../components/ui/Loading-modal/LoadingModal";
 import EraCardButton from "../components/ui/Era-card/EraCardButton";
 import {
-  lifeTestnetContractAddress,
-  testnetMagic,
+  lifeMainnetContractAddress,
+  mainnetMagic,
   nodeUrl,
 } from "../utils/constants";
 import {
@@ -55,9 +55,9 @@ const EraDetails = ({ eras }) => {
   const getErasTransaction = useCallback(() => {
     const getEra = async () => {
       const contract = new Neon.experimental.SmartContract(
-        Neon.u.HexString.fromHex(lifeTestnetContractAddress),
+        Neon.u.HexString.fromHex(lifeMainnetContractAddress),
         {
-          networkMagic: testnetMagic,
+          networkMagic: mainnetMagic,
           rpcAddress: nodeUrl,
         }
       );
@@ -92,9 +92,9 @@ const EraDetails = ({ eras }) => {
 
   useEffect(() => {
     const lifeContract = new Neon.experimental.SmartContract(
-      Neon.u.HexString.fromHex(lifeTestnetContractAddress),
+      Neon.u.HexString.fromHex(lifeMainnetContractAddress),
       {
-        networkMagic: testnetMagic,
+        networkMagic: mainnetMagic,
         rpcAddress: nodeUrl,
       }
     );
@@ -182,7 +182,7 @@ const EraDetails = ({ eras }) => {
     }
 
     let param = {
-      scriptHash: lifeTestnetContractAddress,
+      scriptHash: lifeMainnetContractAddress,
       operation: "endEra",
       args: [
         {
@@ -296,7 +296,7 @@ const EraDetails = ({ eras }) => {
     }
 
     let param = {
-      scriptHash: lifeTestnetContractAddress,
+      scriptHash: lifeMainnetContractAddress,
       operation: "completeEra",
       args: [
         {
@@ -410,7 +410,7 @@ const EraDetails = ({ eras }) => {
     }
 
     let param = {
-      scriptHash: lifeTestnetContractAddress,
+      scriptHash: lifeMainnetContractAddress,
       operation: "payWinner",
       args: [
         {

@@ -6,7 +6,7 @@ import { sc, wallet } from "@cityofzion/neon-js";
 import { WitnessScope } from "@rentfuse-labs/neo-wallet-adapter-base";
 import { helpers } from "@cityofzion/props";
 
-import { lifeTestnetContractAddress, nodeUrl } from "../../../utils/constants";
+import { lifeMainnetContractAddress, nodeUrl } from "../../../utils/constants";
 
 import "./rescue-modal.css";
 
@@ -44,7 +44,7 @@ const RescueModal = (props) => {
     }
 
     let param = {
-      scriptHash: lifeTestnetContractAddress,
+      scriptHash: lifeMainnetContractAddress,
       operation: "makeTransferable",
       args: [
         {

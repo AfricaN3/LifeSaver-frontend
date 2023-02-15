@@ -6,9 +6,9 @@ import { rpc } from "@cityofzion/neon-core";
 
 import {
   nodeUrl,
-  lifeTestnetContractAddress,
+  lifeMainnetContractAddress,
   gasContractAddress,
-  testnetMagic,
+  mainnetMagic,
 } from "../utils/constants";
 import { toInvocationArgument, convertPermissions } from "../utils/converter";
 import { convertEra } from "../utils/convertEra";
@@ -30,9 +30,9 @@ const useReadNeo = () => {
     const getEras = async () => {
       if (erasNumber > 0) {
         const contract = new Neon.experimental.SmartContract(
-          Neon.u.HexString.fromHex(lifeTestnetContractAddress),
+          Neon.u.HexString.fromHex(lifeMainnetContractAddress),
           {
-            networkMagic: testnetMagic,
+            networkMagic: mainnetMagic,
             rpcAddress: nodeUrl,
           }
         );
@@ -54,9 +54,9 @@ const useReadNeo = () => {
 
   useEffect(() => {
     const contract = new Neon.experimental.SmartContract(
-      Neon.u.HexString.fromHex(lifeTestnetContractAddress),
+      Neon.u.HexString.fromHex(lifeMainnetContractAddress),
       {
-        networkMagic: testnetMagic,
+        networkMagic: mainnetMagic,
         rpcAddress: nodeUrl,
       }
     );
@@ -82,14 +82,14 @@ const useReadNeo = () => {
       const gasContract = new Neon.experimental.SmartContract(
         Neon.u.HexString.fromHex(gasContractAddress),
         {
-          networkMagic: testnetMagic,
+          networkMagic: mainnetMagic,
           rpcAddress: nodeUrl,
         }
       );
       const lifeContract = new Neon.experimental.SmartContract(
-        Neon.u.HexString.fromHex(lifeTestnetContractAddress),
+        Neon.u.HexString.fromHex(lifeMainnetContractAddress),
         {
-          networkMagic: testnetMagic,
+          networkMagic: mainnetMagic,
           rpcAddress: nodeUrl,
         }
       );

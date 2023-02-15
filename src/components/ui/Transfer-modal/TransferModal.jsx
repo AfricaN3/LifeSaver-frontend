@@ -13,8 +13,8 @@ import { getTimestamp } from "../../../utils/timestamp";
 import moment from "moment";
 
 import {
-  lifeTestnetContractAddress,
-  testnetMagic,
+  lifeMainnetContractAddress,
+  mainnetMagic,
   nodeUrl,
 } from "../../../utils/constants";
 import {
@@ -56,9 +56,9 @@ const TransferModal = (props) => {
   let time = timestamp / 1000;
 
   const lifeContract = new Neon.experimental.SmartContract(
-    Neon.u.HexString.fromHex(lifeTestnetContractAddress),
+    Neon.u.HexString.fromHex(lifeMainnetContractAddress),
     {
-      networkMagic: testnetMagic,
+      networkMagic: mainnetMagic,
       rpcAddress: nodeUrl,
     }
   );
@@ -143,7 +143,7 @@ const TransferModal = (props) => {
     }
 
     let param = {
-      scriptHash: lifeTestnetContractAddress,
+      scriptHash: lifeMainnetContractAddress,
       operation: "transfer",
       args: [
         {

@@ -15,7 +15,7 @@ import {
   factor,
   gasContractAddress,
   nodeUrl,
-  lifeTestnetContractAddress,
+  lifeMainnetContractAddress,
 } from "../utils/constants";
 import { dateToString } from "../utils/converter";
 import CommonSection from "../components/ui/Common-section/CommonSection";
@@ -113,7 +113,7 @@ const EraCreate = () => {
         },
         {
           type: "Hash160",
-          value: sc.ContractParam.hash160(lifeTestnetContractAddress).toJson()
+          value: sc.ContractParam.hash160(lifeMainnetContractAddress).toJson()
             .value,
         },
         {

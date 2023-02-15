@@ -14,8 +14,8 @@ import "./donate-modal.css";
 import {
   tokens,
   gasContractAddress,
-  lifeTestnetContractAddress,
-  testnetMagic,
+  lifeMainnetContractAddress,
+  mainnetMagic,
   factor,
   nodeUrl,
 } from "../../../utils/constants";
@@ -66,9 +66,9 @@ const DonateModal = ({
   const lifeContract = useMemo(
     () =>
       new Neon.experimental.SmartContract(
-        Neon.u.HexString.fromHex(lifeTestnetContractAddress),
+        Neon.u.HexString.fromHex(lifeMainnetContractAddress),
         {
-          networkMagic: testnetMagic,
+          networkMagic: mainnetMagic,
           rpcAddress: nodeUrl,
         }
       ),
@@ -100,7 +100,7 @@ const DonateModal = ({
     const tokenContract = new Neon.experimental.SmartContract(
       Neon.u.HexString.fromHex(token),
       {
-        networkMagic: testnetMagic,
+        networkMagic: mainnetMagic,
         rpcAddress: nodeUrl,
       }
     );
@@ -114,7 +114,7 @@ const DonateModal = ({
     const tokenContract = new Neon.experimental.SmartContract(
       Neon.u.HexString.fromHex(token),
       {
-        networkMagic: testnetMagic,
+        networkMagic: mainnetMagic,
         rpcAddress: nodeUrl,
       }
     );
@@ -126,7 +126,7 @@ const DonateModal = ({
     const tokenContract = new Neon.experimental.SmartContract(
       Neon.u.HexString.fromHex(token),
       {
-        networkMagic: testnetMagic,
+        networkMagic: mainnetMagic,
         rpcAddress: nodeUrl,
       }
     );
@@ -200,7 +200,7 @@ const DonateModal = ({
     }
 
     let param = {
-      scriptHash: lifeTestnetContractAddress,
+      scriptHash: lifeMainnetContractAddress,
       operation: "offlineMint",
       args: [
         {
@@ -336,7 +336,7 @@ const DonateModal = ({
         },
         {
           type: "Hash160",
-          value: sc.ContractParam.hash160(lifeTestnetContractAddress).toJson()
+          value: sc.ContractParam.hash160(lifeMainnetContractAddress).toJson()
             .value,
         },
         {
@@ -495,7 +495,7 @@ const DonateModal = ({
         },
         {
           type: "Hash160",
-          value: sc.ContractParam.hash160(lifeTestnetContractAddress).toJson()
+          value: sc.ContractParam.hash160(lifeMainnetContractAddress).toJson()
             .value,
         },
         {

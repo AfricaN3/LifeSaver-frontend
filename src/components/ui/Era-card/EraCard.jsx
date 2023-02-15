@@ -8,8 +8,8 @@ import eraImage from "../../../assets/images/hero.png";
 import { shortenAddress } from "../../../utils/shortenAddress";
 import { toInvocationArgument } from "../../../utils/converter";
 import {
-  lifeTestnetContractAddress,
-  testnetMagic,
+  lifeMainnetContractAddress,
+  mainnetMagic,
   nodeUrl,
   gasContractAddress,
   factor,
@@ -41,9 +41,9 @@ const NftCard = ({ item }) => {
   const lifeContract = useMemo(
     () =>
       new Neon.experimental.SmartContract(
-        Neon.u.HexString.fromHex(lifeTestnetContractAddress),
+        Neon.u.HexString.fromHex(lifeMainnetContractAddress),
         {
-          networkMagic: testnetMagic,
+          networkMagic: mainnetMagic,
           rpcAddress: nodeUrl,
         }
       ),

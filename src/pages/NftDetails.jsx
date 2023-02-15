@@ -8,8 +8,8 @@ import Neon from "@cityofzion/neon-js";
 import { toast } from "react-toastify";
 import { useWallet } from "@rentfuse-labs/neo-wallet-adapter-react";
 import {
-  lifeTestnetContractAddress,
-  testnetMagic,
+  lifeMainnetContractAddress,
+  mainnetMagic,
   nodeUrl,
 } from "../utils/constants";
 import { getTimestamp } from "../utils/timestamp";
@@ -47,9 +47,9 @@ const NftDetails = () => {
 
   useEffect(() => {
     const lifeContract = new Neon.experimental.SmartContract(
-      Neon.u.HexString.fromHex(lifeTestnetContractAddress),
+      Neon.u.HexString.fromHex(lifeMainnetContractAddress),
       {
-        networkMagic: testnetMagic,
+        networkMagic: mainnetMagic,
         rpcAddress: nodeUrl,
       }
     );
