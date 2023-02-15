@@ -58,7 +58,9 @@ const Footer = () => {
         <Row>
           <Col lg="3" md="6" sm="6" className="mb-4">
             <div className="footlogo">
-              <img src={logo} alt="logo" />
+              <Link to={`/home`}>
+                <img src={logo} alt="logo" />
+              </Link>
               <p>Donate blood, Mint NFTs, Save Lives...</p>
             </div>
           </Col>
