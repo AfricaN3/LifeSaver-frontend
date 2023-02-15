@@ -11,7 +11,7 @@ export const bNeoContractAddress = "0x48c40d4666f93408be1bef038b6722404d9a4c2a";
 //   "0x3a89b9392e9070ef4b1691911799d1785c0c02be";
 
 export const lifeMainnetContractAddress =
-  "0x3a89b9392e9070ef4b1691911799d1785c0c02be";
+  "0xfa63f939ac486e5a8fd3d387e6963119c447ac69";
 
 export const mainnetMagic = 860833102;
 
