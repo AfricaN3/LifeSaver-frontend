@@ -93,6 +93,8 @@ export function toInvocationArgument(type, value) {
       // Value field will be set to null.
       arg.value = null;
       break;
+    default:
+      arg.value = value;
   }
 
   return arg;
@@ -138,6 +140,8 @@ export function convertToreadable(type, value) {
           u.reverseHex(u.base642hex(value))
         );
         break;
+      default:
+        parsedValue = value;
     }
     return parsedValue;
   }

@@ -10,21 +10,18 @@ const EraCardButton = (props) => {
           <i className="ri-shopping-bag-line"></i> Mint
         </button>
       );
-      break;
     case "guest":
       return (
         <button className={btnStyle} onClick={() => setShowDonateModal(true)}>
           <i className="ri-shopping-bag-line"></i> Mint
         </button>
       );
-      break;
     case "fan":
       return (
         <button className={btnStyle} onClick={() => startDonate()}>
           <i className="ri-empathize-line"></i> Donate
         </button>
       );
-      break;
     default:
       return (
         <button className={btnStyle} onClick={() => setShowDonateModal(true)}>
