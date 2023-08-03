@@ -17,9 +17,9 @@ export const mainnetMagic = 860833102;
 
 // export const testnetMagic =  894710606;
 
-export const nodeUrl = "https://mainnet5.neo.coz.io:443"; //"https://testnet2.neo.coz.io:443"; //"https://mainnet5.neo.coz.io:443"
+export const nodeUrl = "https://n3seed1.ngd.network:10332"; //"https://testnet2.neo.coz.io:443"; //"https://n3seed1.ngd.network:10332"
 
-export const mainnetNodeUrl = "https://mainnet5.neo.coz.io:443";
+export const mainnetNodeUrl = "https://n3seed1.ngd.network:10332";
 
 export const factor = Math.pow(10, 8);
 
